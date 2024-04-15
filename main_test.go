@@ -97,7 +97,7 @@ func TestDictsort(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := Dictsort(tt.value, tt.arg); !reflect.DeepEqual(got, tt.want) {
+			if got := DictSort(tt.value, tt.arg); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("Dictsort() = %v, want %v", got, tt.want)
 			}
 		})
@@ -166,22 +166,22 @@ func TestDate(t *testing.T) {
 		wantErr bool
 	}{
 		{
-			name:    "Test with date format",
-			value:   "2021-01-02",
-			format:  "Y-m-d",
-			want:    "2021-01-02",
+			name:   "Test with date format",
+			value:  "2021-01-02",
+			format: "Y-m-d",
+			want:   "2021-01-02",
 		},
 		{
-			name:    "Test with date and time format",
-			value:   "2021-01-02 15:04:05",
-			format:  "Y-m-d H:i:s",
-			want:    "2021-01-02 15:04:05",
+			name:   "Test with date and time format",
+			value:  "2021-01-02 15:04:05",
+			format: "Y-m-d H:i:s",
+			want:   "2021-01-02 15:04:05",
 		},
 		{
-			name:    "Test with invalid date format",
-			value:   "2021-01-02",
-			format:  "invalid",
-			want:    "",
+			name:   "Test with invalid date format",
+			value:  "2021-01-02",
+			format: "invalid",
+			want:   "",
 		},
 	}
 

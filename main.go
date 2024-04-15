@@ -200,8 +200,8 @@ func Cut(value string, arg string) string {
 	return strings.ReplaceAll(value, arg, "")
 }
 
-// Dictsort takes a list of dictionaries and returns that list sorted by the key given in the argument.
-func Dictsort(value []map[string]string, arg string) []map[string]string {
+// DictSort takes a list of dictionaries and returns that list sorted by the key given in the argument.
+func DictSort(value []map[string]string, arg string) []map[string]string {
 	// Sort a list of dictionaries by a key.
 	sort.Slice(value, func(i, j int) bool {
 		return value[i][arg] < value[j][arg]
@@ -209,8 +209,8 @@ func Dictsort(value []map[string]string, arg string) []map[string]string {
 	return value
 }
 
-// Dictsortreversed takes a list of dictionaries and returns that list sorted by the key given in the argument in reverse order.
-func Dictsortreversed(value []map[string]string, arg string) []map[string]string {
+// DictSortReversed takes a list of dictionaries and returns that list sorted by the key given in the argument in reverse order.
+func DictSortReversed(value []map[string]string, arg string) []map[string]string {
 	// Sort a list of dictionaries by a key in reverse order.
 	sort.Slice(value, func(i, j int) bool {
 		return value[i][arg] > value[j][arg]
@@ -323,4 +323,14 @@ func TimeUntil(value string) string {
 
 	// Return the time until the date in the right format
 	return duration.String()
+}
+
+// DefaultIfNone returns the value if it is not None, otherwise returns the default value.
+// value can be a string or an object.
+func DefaultIfNone(value interface{}, arg string) interface{} {
+	// Return the value if it is not None, otherwise return the default value.
+	if value == nil {
+		return arg
+	}
+	return value
 }
