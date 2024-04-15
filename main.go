@@ -41,36 +41,32 @@ func Pluralize(size int, word string, arg ...string) string {
 	case size == 0:
 		if len(arg) == 0 {
 			return fmt.Sprintf("%ss", word)
-		} else {
-			bits := pkg.SplitArg(arg[0])
-			if len(bits) > 1 {
-				return fmt.Sprintf("%s%s", word, bits[1])
-			} else {
-				return fmt.Sprintf("%s%s", word, arg[0])
-			}
 		}
+
+		bits := pkg.SplitArg(arg[0])
+		if len(bits) > 1 {
+			return fmt.Sprintf("%s%s", word, bits[1])
+		}
+
+		return fmt.Sprintf("%s%s", word, arg[0])
 	case size == 1:
 		if len(arg) == 0 {
 			return word
-		} else {
-			bits := pkg.SplitArg(arg[0])
-			if len(bits) > 1 {
-				return fmt.Sprintf("%s%s", word, bits[0])
-			} else {
-				return word
-			}
 		}
+		bits := pkg.SplitArg(arg[0])
+		if len(bits) > 1 {
+			return fmt.Sprintf("%s%s", word, bits[0])
+		}
+		return word
 	case size > 1:
 		if len(arg) == 0 {
 			return fmt.Sprintf("%ss", word)
-		} else {
-			bits := pkg.SplitArg(arg[0])
-			if len(bits) > 1 {
-				return fmt.Sprintf("%s%s", word, bits[1])
-			} else {
-				return fmt.Sprintf("%s%s", word, arg[0])
-			}
 		}
+		bits := pkg.SplitArg(arg[0])
+		if len(bits) > 1 {
+			return fmt.Sprintf("%s%s", word, bits[1])
+		}
+		return fmt.Sprintf("%s%s", word, arg[0])
 	}
 
 	return ""
@@ -307,6 +303,24 @@ func TimeSince(value string) string {
 		fmt.Println(err)
 	}
 
-	// Return the time since the date in integer format
+	// Return the time since the date in the right format
+	return duration.String()
+}
+
+// TimeUntil returns the time until the given date.
+// Format a date as the time until that date (i.e. "4 days, 6 hours").
+func TimeUntil(value string) string {
+	// Parse the date
+	t, err := time.Parse(time.RFC3339, value)
+	if err != nil {
+		return ""
+	}
+
+	duration, err := durafmt.ParseString(time.Until(t).Round(time.Second).String())
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	// Return the time until the date in the right format
 	return duration.String()
 }

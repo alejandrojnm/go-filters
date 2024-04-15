@@ -233,6 +233,44 @@ func TestTimeSince(t *testing.T) {
 	}
 }
 
+func TestTimeUntil(t *testing.T) {
+	tests := []struct {
+		name  string
+		value string
+		want  string
+	}{
+		{
+			name:  "Test with valid RFC3339 date",
+			value: time.Now().Add(5 * time.Minute).Format(time.RFC3339),
+			want:  "5 minutes",
+		},
+		{
+			name:  "Test with valid RFC3339 date",
+			value: time.Now().Add(1 * time.Hour).Format(time.RFC3339),
+			want:  "1 hour",
+		},
+		{
+			name:  "Test with valid RFC3339 date",
+			value: time.Now().Add(1 * time.Second).Format(time.RFC3339),
+			want:  "1 second",
+		},
+		{
+			name:  "Test with invalid date",
+			value: "invalid date",
+			want:  "",
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got := TimeUntil(tt.value)
+			if !strings.HasPrefix(got, tt.want) {
+				t.Errorf("TimeUntil() = %v, want prefix %v", got, tt.want)
+			}
+		})
+	}
+}
+
 // Helper function to check if a slice of integers contains a specific integer
 func containsInt(slice []int, item int) bool {
 	for _, a := range slice {

@@ -40,7 +40,12 @@ func TestDateFormats(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := DateFormats(tt.format); got != tt.want {
+			got, err := DateFormats(tt.format)
+			if err != nil {
+				t.Errorf("DateFormats() error = %v", err)
+				return
+			}
+			if got != tt.want {
 				t.Errorf("DateFormats() = %v, want %v", got, tt.want)
 			}
 		})
